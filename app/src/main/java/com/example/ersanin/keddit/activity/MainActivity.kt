@@ -1,4 +1,4 @@
-package com.example.ersanin.keddit
+package com.example.ersanin.keddit.activity
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import com.example.ersanin.keddit.R
+import com.example.ersanin.keddit.fragment.NewsFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,9 +19,9 @@ class MainActivity : AppCompatActivity() {
         val toolbar = findViewById(R.id.toolbar) as Toolbar?
         setSupportActionBar(toolbar)
 
-//        if (savedInstanceState == null) {
-//            changeFragment(NewsFragment())
-//        }
+        if (savedInstanceState == null) {
+            changeFragment(NewsFragment())
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
