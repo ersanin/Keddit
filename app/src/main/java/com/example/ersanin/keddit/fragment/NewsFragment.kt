@@ -1,3 +1,5 @@
+@file:JvmName("ExtensionsUtils")
+
 package com.example.ersanin.keddit.fragment
 
 import android.os.Bundle
@@ -8,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.ersanin.keddit.R
+import com.example.ersanin.keddit.common.inflate
 
 /**
  * Created by Ersanin on 20.06.2016.
@@ -16,12 +19,15 @@ class NewsFragment : Fragment() {
 
     private var newsList: RecyclerView? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val view = inflater.inflate(R.layout.news_fragment, container, false)
-        newsList = view.findViewById(R.id.news_list) as RecyclerView?
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = container?.inflate(R.layout.news_fragment, true)
+
+        newsList = view?.findViewById(R.id.news_list) as RecyclerView?
         newsList?.setHasFixedSize(true) // use this setting to improve performance
         newsList?.layoutManager = LinearLayoutManager(context)
 
         return view
     }
 }
+
+

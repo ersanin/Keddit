@@ -1,3 +1,5 @@
+@file:JvmName("ExtensionsUtils")
+
 package com.example.ersanin.keddit.common
 
 import android.view.LayoutInflater
@@ -7,8 +9,6 @@ import android.view.ViewGroup
 /**
  * Created by Ersanin on 20.06.2016.
  */
-class Extensions {
-    fun ViewGroup.inflate(layoutId: Int): View {
-        return LayoutInflater.from(context).inflate(layoutId, this, false)
-    }
+fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View {
+    return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
 }
