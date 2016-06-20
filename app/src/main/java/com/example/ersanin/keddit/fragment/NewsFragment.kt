@@ -11,23 +11,28 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.ersanin.keddit.R
 import com.example.ersanin.keddit.common.inflate
+import kotlinx.android.synthetic.main.news_fragment.*
 
 /**
  * Created by Ersanin on 20.06.2016.
  */
 class NewsFragment : Fragment() {
 
-    private var newsList: RecyclerView? = null
+    private val newsList: RecyclerView by lazy {
+        news_list
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = container?.inflate(R.layout.news_fragment, true)
-
-        newsList = view?.findViewById(R.id.news_list) as RecyclerView?
-        newsList?.setHasFixedSize(true) // use this setting to improve performance
-        newsList?.layoutManager = LinearLayoutManager(context)
-
-        return view
+        return container?.inflate(R.layout.news_fragment, true)
     }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        newsList.setHasFixedSize(true) // <-- Lazy executed!
+        newsList.layoutManager = LinearLayoutManager(context)
+    }
+
 }
 
 
