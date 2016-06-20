@@ -10,7 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.ersanin.keddit.R
-import com.example.ersanin.keddit.common.inflate
+import com.example.ersanin.keddit.common.extensions.inflate
+import com.example.ersanin.keddit.features.news.adapter.NewsAdapter
 import kotlinx.android.synthetic.main.news_fragment.*
 
 /**
@@ -23,7 +24,7 @@ class NewsFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return container?.inflate(R.layout.news_fragment, true)
+        return container?.inflate(R.layout.news_fragment)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -31,6 +32,14 @@ class NewsFragment : Fragment() {
 
         newsList.setHasFixedSize(true) // <-- Lazy executed!
         newsList.layoutManager = LinearLayoutManager(context)
+
+        initAdapter()
+    }
+
+    private fun initAdapter() {
+        if (news_list.adapter == null) {
+            news_list.adapter = NewsAdapter()
+        }
     }
 
 }

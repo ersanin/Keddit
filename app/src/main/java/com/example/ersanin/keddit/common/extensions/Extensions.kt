@@ -1,6 +1,6 @@
 @file:JvmName("ExtensionsUtils")
 
-package com.example.ersanin.keddit.common
+package com.example.ersanin.keddit.common.extensions
 
 import android.view.LayoutInflater
 import android.view.View
