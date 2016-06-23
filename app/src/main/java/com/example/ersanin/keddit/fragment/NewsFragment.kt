@@ -3,26 +3,29 @@
 package com.example.ersanin.keddit.fragment
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.ersanin.keddit.R
-import com.example.ersanin.keddit.common.RedditNewsItem
+import com.example.ersanin.keddit.common.RxBaseFragment
 import com.example.ersanin.keddit.common.extensions.inflate
+import com.example.ersanin.keddit.features.NewsManager
 import com.example.ersanin.keddit.features.news.adapter.NewsAdapter
 import kotlinx.android.synthetic.main.news_fragment.*
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 
 /**
  * Created by Ersanin on 20.06.2016.
  */
-class NewsFragment : Fragment() {
+class NewsFragment : RxBaseFragment() {
 
-    private val newsList: RecyclerView by lazy {
-        news_list
-    }
+    private val newsManager by lazy { NewsManager() }
+
+    private val newsList: RecyclerView by lazy { news_list }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return container?.inflate(R.layout.news_fragment)
@@ -37,19 +40,21 @@ class NewsFragment : Fragment() {
         initAdapter()
 
         if (savedInstanceState == null) {
-            val news = mutableListOf<RedditNewsItem>()
-            for (i in 1..10) {
-                news.add(RedditNewsItem(
-                        "author$i",
-                        "Title $i",
-                        i, // number of comments
-                        1457207701L - i * 200, // time
-                        "http://lorempixel.com/200/200/technics/$i", // image url
-                        "url"
-                ))
-            }
-            (news_list.adapter as NewsAdapter).addNews(news)
+            requestNews()
         }
+    }
+
+    private fun requestNews() {
+        val subscription = newsManager.getNews()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe (
+                        { retrievedNews ->
+                            (news_list.adapter as NewsAdapter).addNews(retrievedNews)
+                        }, { e ->
+                    Snackbar.make(news_list, e.message ?: "", Snackbar.LENGTH_LONG).show()
+                })
+        subscriptions.add(subscription)
     }
 
     private fun initAdapter() {
@@ -57,7 +62,6 @@ class NewsFragment : Fragment() {
             news_list.adapter = NewsAdapter()
         }
     }
-
 }
 
 
