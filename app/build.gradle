@@ -29,18 +29,25 @@ dependencies {
     final PICASSO = '2.5.2'
     final RX_JAVA = '1.1.6'
     final RX_ANDROID = '1.2.1'
+    final RETROFIT_VERSION = '2.0.0'
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
+    //ui
     compile "com.android.support:appcompat-v7:$ANDROID_SUPPORT"
     compile "com.android.support:support-v4:$ANDROID_SUPPORT"
     compile "com.android.support:design:$ANDROID_SUPPORT"
     compile "com.android.support:recyclerview-v7:$ANDROID_SUPPORT"
+    //image
     compile "com.squareup.picasso:picasso:$PICASSO"
+    //reactive
     compile "io.reactivex:rxjava:$RX_JAVA"
     compile "io.reactivex:rxandroid:$RX_ANDROID"
+    //network
+    compile "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
+    compile "com.squareup.retrofit2:converter-moshi:$RETROFIT_VERSION"
 }
 
 buildscript {
