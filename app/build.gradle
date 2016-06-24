@@ -32,9 +32,13 @@ dependencies {
     final RETROFIT_VERSION = '2.0.0'
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
+    //tests
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:1.+'
+    testCompile 'org.jetbrains.spek:spek:1.0.+'
+    //kotlin
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     //ui
     compile "com.android.support:appcompat-v7:$ANDROID_SUPPORT"
     compile "com.android.support:support-v4:$ANDROID_SUPPORT"
@@ -51,7 +55,7 @@ dependencies {
 }
 
 buildscript {
-    ext.kotlin_version = '1.0.1-2'
+    ext.kotlin_version = '1.0.2'
     repositories {
         mavenCentral()
     }
@@ -62,4 +66,7 @@ buildscript {
 
 repositories {
     mavenCentral()
+    maven {
+        url "http://repository.jetbrains.com/all"
+    }
 }
